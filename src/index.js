@@ -1,13 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import store from './redux/store';
+import { getGroupIdAndUserId } from './redux/Actions/authActions';
+import {ErrorBoundary} from './ErrorBoundary';
+
+store.dispatch(getGroupIdAndUserId());
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ErrorBoundary>
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>
+  </ErrorBoundary>,
   document.getElementById('root')
 );
 
